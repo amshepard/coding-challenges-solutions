@@ -21,4 +21,29 @@ var removeDuplicates = function(nums) {
     // cannot use destructive array methods because "..Do not allocate extra space for another array."
     // honestly i have no idea what this problem is asking for at this point.
     // I will come back to this one. I see that https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/ is a similar problem at an easier level. I will attempt to solve that one first and see if that gets my wheels spinning.
+    // Updated thoughts/psuedocode after referring to previous problem:
+    // --- need .length() to keep track of elements
+    // --- need a for loop to iterate and compare elements
+    // --- move unique elements to current incremented position
+        // Check if the input array is empty or very short (length <= 2)
+    if (nums.length <= 2) {
+        // If it's empty or short, we don't need to remove duplicates, just return the length as is.
+        return nums.length;
+    }
+    
+    // Initialize a pointer 'writeIndex' to 2, since the first two elements are always kept.
+    let writeIndex = 2;
+    
+    // Start looping through the array, beginning from the third element (index 2).
+    for (let i = 2; i < nums.length; i++) {
+        // Check if the current number is different from the two elements before it.
+        if (nums[i] !== nums[writeIndex - 1] || nums[i] !== nums[writeIndex - 2]) {
+            // If it's different, we can keep it, so replace it at 'writeIndex'.
+            nums[writeIndex] = nums[i];
+            writeIndex++; // Move the writeIndex forward.
+        }
+    }
+    
+    // 'writeIndex' now represents the length of the modified array.
+    return writeIndex;
 };
